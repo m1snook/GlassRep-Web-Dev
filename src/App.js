@@ -9,10 +9,12 @@ import HomePage from "./pages/HomePage";
 import PowerCredentialsPage from "./pages/PowerCredentials";
 import ContactPage from "./pages/Contact";
 import ProductDetailsPage from "./pages/ProductDetails";
+import Auth from "./pages/Auth";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const App = () => {
   return (
-    <>
+    <AuthProvider>
       <TopBar />
       <Switch>
         <Route
@@ -28,11 +30,12 @@ const App = () => {
           <Route path="/power-cred" component={PowerCredentialsPage} />
           <Route path="/contact" component={ContactPage} />
           <Route path="/details" component={ProductDetailsPage} />
+          <Route path="/auth" component={Auth}/>
           <Route path="/" component={HomePage} />
         </Switch>
       </main>
       <Footer />
-    </>
+    </AuthProvider>
   );
 };
 

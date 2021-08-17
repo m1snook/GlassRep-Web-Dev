@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 /**
  * Display the featured carousel only on the home page
@@ -105,6 +106,7 @@ const Carousel = ({ feature }) => {
  * @returns carousel
  */
 const NavBar = ({ feature }) => {
+  const {currentUser} = useAuth();
   return (
     <div className="container-fluid">
       <div className="row border-top px-xl-5">
@@ -257,12 +259,18 @@ const NavBar = ({ feature }) => {
                 {/* <a href="#!" className="nav-item nav-link active">
                   Power Credentials
                 </a> */}
-                <Link to="login" className="nav-item nav-link">
-                  Login
-                </Link>
-                <Link to="register" className="nav-item nav-link">
-                  Register
-                </Link>
+                {!currentUser ? 
+                <>
+                  <Link to="login" className="nav-item nav-link">
+                    Login
+                  </Link>
+                  <Link to="register" className="nav-item nav-link">
+                    Register
+                  </Link>
+                </>
+                : 
+                <Link to="profile" className="nav-item nav-link active">{currentUser.email}</Link>
+                }
               </div>
             </div>
           </nav>

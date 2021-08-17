@@ -12,15 +12,17 @@ import App from "./App";
 // import "./mail/contact.js";
 // import "./js/main";
 import { BrowserRouter } from "react-router-dom";
+import reducers from "./redux/reducers";
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+const store = createStore(reducers, applyMiddleware(thunk))
 
 ReactDOM.render(
   <BrowserRouter>
+  <Provider store={store}>
     <App />
+  </Provider>
   </BrowserRouter>,
   document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
