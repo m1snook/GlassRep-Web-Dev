@@ -2,11 +2,11 @@ import React, {useRef, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import "../sass/auth.css"
-const Auth = () => {
+
+const SignIn = () => {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
-  const {signUp} = useAuth();
+  const {signIn} = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   
@@ -14,22 +14,17 @@ const Auth = () => {
 
   async function handleSubmit(e){
     e.preventDefault();
-    if(passwordRef.current.value === passwordConfirmRef.current.value) {
-      setError("");
-      try {
-        setLoading(true);
-        await signUp(emailRef.current.value, passwordRef.current.value);
-        history.replace("/")
-      } catch(e){
-        console.log(e);
-        setError("Could not create account");
-      } finally{
-        setLoading(false);
-      }
-    }
-    else {
-      setError("Passwords do not match");
-      setLoading(false)
+    setError("");
+    try {
+      setLoading(true);
+      await signIn(emailRef.current.value, passwordRef.current.value);
+      history.replace("/")
+    } catch(e){
+      console.log(e);
+      setError("Login Error");
+
+    } finally{
+      setLoading(false);
     }
   }
   return (
@@ -37,19 +32,18 @@ const Auth = () => {
        <div id="login-box">
         <div className="left">
           <form onSubmit={handleSubmit}>
-            <h1>Sign up</h1>
+            <h1>Log In</h1>
             <input type="text" name="username" placeholder="Username" />
             <input ref={emailRef} type="text" name="email" placeholder="E-mail" />
             <input ref={passwordRef}type="password" name="password" placeholder="Password" />
-            <input ref={passwordConfirmRef}type="password" name="password2" placeholder="Retype password" />
             
-            <input type="submit" name="signup_submit" value="Sign Up" disabled={loading}/>
+            <input type="submit" name="signup_submit" value="Log In" disabled={loading}/>
             <div>{error}</div>
           </form>
         </div>
         
         <div className="right">
-          <span style={{color: "black" }}className="loginwith">Sign in with<br/>Google</span>
+          <span style={{color: "black" }} className="loginwith">Sign in with<br/>Google</span>
           
          {/* <button className="social-signin facebook"></button>
           <button className="social-signin twitter"></button>*/}
@@ -62,4 +56,4 @@ const Auth = () => {
   );
 }
 
-export default Auth;
+export default SignIn;
