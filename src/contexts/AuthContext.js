@@ -24,7 +24,7 @@ export function AuthProvider({children}){
   function sendIdToken() {
     auth.currentUser.getIdToken(true)
       .then(idToken => {
-        axios.post('/api/users', {}, { 
+        axios.post('http://localhost:5000/api/users', {}, { 
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${idToken}`
@@ -40,7 +40,10 @@ export function AuthProvider({children}){
   useEffect(()=>{
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user);
-      setLoading(false)
+      setLoading(false);
+      if(user != null) {
+        sendIdToken();
+      }
     })
     return unsubscribe;
   }, [])
