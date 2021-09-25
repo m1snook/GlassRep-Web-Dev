@@ -31,8 +31,8 @@ const App = () => {
           <Route path="/power-cred" component={PowerCredentialsPage} />
           <Route path="/contact" component={ContactPage} />
           <Route path="/details" component={ProductDetailsPage} />
-          <Route path="/register" component={SignUp}/>
-          <Route path="/login" component={SignIn}/>
+          <Route path="/register" component={SignUp} />
+          <Route path="/login" component={SignIn} />
           <Route path="/" component={HomePage} />
         </Switch>
       </main>
